@@ -5,21 +5,22 @@
     </p>
     <h2 class="my-0">{{ lesson.title }}</h2>
     <div class="flex space-x-4 mt-2 mb-8">
-      <a
+      <nuxt-link
         v-if="lesson.sourceUrl"
         class="font-normal text-md text-gray-500"
         :href="lesson.sourceUrl"
       >
         Download Source Code
-      </a>
-      <a
+      </nuxt-link>
+      <nuxt-link
         v-if="lesson.downloadUrl"
         class="font-normal text-md text-gray-500"
         :href="lesson.downloadUrl"
       >
         Download Video
-      </a>
+      </nuxt-link>
     </div>
+    <video-player :video-id="lesson.videoId" />
     <p>{{ lesson.text }}</p>
   </div>
 </template>
@@ -38,5 +39,9 @@ const lesson = computed(() => {
   return chapter.value.lessons.find(
     (lesson) => lesson.slug === route.params.lessonSlug
   );
+});
+
+useHead({
+  title: `${chapter.value.title} - ${lesson.value.title}`,
 });
 </script>
