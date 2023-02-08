@@ -20,15 +20,14 @@
         Download Video
       </NuxtLink>
     </div>
-    <VideoPlayer
-      v-if="lesson.videoId"
-      :videoId="lesson.videoId"
-    />
+    <VideoPlayer v-if="lesson.videoId" :videoId="lesson.videoId" />
     <p>{{ lesson.text }}</p>
     <LessonCompleteButton
       :model-value="isLessonComplete"
       @update:model-value="toggleComplete"
     />
+    <!-- <client-only>
+    </client-only> -->
   </div>
 </template>
 
@@ -92,17 +91,11 @@ const isLessonComplete = computed(() => {
     return false;
   }
 
-  if (
-    !progress.value[chapter.value.number - 1][
-      lesson.value.number - 1
-    ]
-  ) {
+  if (!progress.value[chapter.value.number - 1][lesson.value.number - 1]) {
     return false;
   }
 
-  return progress.value[chapter.value.number - 1][
-    lesson.value.number - 1
-  ];
+  return progress.value[chapter.value.number - 1][lesson.value.number - 1];
 });
 
 const toggleComplete = () => {
@@ -110,8 +103,7 @@ const toggleComplete = () => {
     progress.value[chapter.value.number - 1] = [];
   }
 
-  progress.value[chapter.value.number - 1][
-    lesson.value.number - 1
-  ] = !isLessonComplete.value;
+  progress.value[chapter.value.number - 1][lesson.value.number - 1] =
+    !isLessonComplete.value;
 };
 </script>
